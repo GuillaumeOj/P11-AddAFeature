@@ -1,8 +1,8 @@
 [![Travis Status][travis-status]][travis]
 [![Mergify Status][mergify-status]][mergify]
 
-[travis]:https://travis-ci.com/GuillaumeOj/Pur-Beurre
-[travis-status]:https://api.travis-ci.com/GuillaumeOj/Pur-Beurre.svg?branch=master
+[travis]:https://travis-ci.com/github/GuillaumeOj/P11-AddAFeature
+[travis-status]:https://api.travis-ci.com/GuillaumeOj/P11-AddAFeature.svg?branch=master
 
 [mergify]: https://mergify.io
 [mergify-status]: https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges/GuillaumeOj/Pur-Beurre&style=flat
