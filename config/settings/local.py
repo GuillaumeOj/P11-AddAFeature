@@ -1,24 +1,23 @@
 """Django settings for the local project."""
 import os
 
-# Import the base settings
+from dotenv import find_dotenv
+from dotenv import load_dotenv
+
 from .base import *
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "8*osh-h(vxj5o1oi(uc46k=23^%$gt@5-07hevz74n6ee9e*)d"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = ["*"]
+
+load_dotenv(find_dotenv(filename=".env-local"))
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = True if os.getenv("DEBUG") == "True" else False
+
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DATABASE_NAME"),
+        "USER": os.getenv("DATABASE_USER"),
     }
 }
