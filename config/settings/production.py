@@ -11,9 +11,7 @@ from .base import *
 
 
 ALLOWED_HOSTS = [
-    "projet-8.ojardias.io",
-    "projet-10.ojardias.io",
-    "pur-beurre.ojardias.io",
+    "projet-11.ojardias.io",
 ]
 
 load_dotenv(find_dotenv())
