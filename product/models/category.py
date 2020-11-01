@@ -1,4 +1,3 @@
-from django.core.validators import MaxLengthValidator
 from django.core.validators import MinLengthValidator
 from django.db import models
 
@@ -9,7 +8,7 @@ class Category(models.Model):
     name = models.CharField(
         unique=True,
         max_length=100,
-        validators=[MinLengthValidator(2), MaxLengthValidator],
+        validators=[MinLengthValidator(2)],
     )
 
     def __str__(self):

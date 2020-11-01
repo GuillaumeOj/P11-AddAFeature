@@ -1,7 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.validators import MaxLengthValidator
 from django.core.validators import MinLengthValidator
-from django.core.validators import URLValidator
 from django.db import models
 from django.db.models import Count
 from django.db.models import Q
@@ -115,26 +113,22 @@ class Product(models.Model):
     code = models.CharField(
         max_length=13,
         unique=True,
-        validators=[MinLengthValidator(13), MaxLengthValidator],
+        validators=[MinLengthValidator(13)],
     )
 
-    name = models.CharField(
-        max_length=100, validators=[MinLengthValidator(2), MaxLengthValidator]
-    )
+    name = models.CharField(max_length=100, validators=[MinLengthValidator(2)])
 
     nutriscore_grade = models.CharField(
         max_length=1,
-        validators=[MinLengthValidator(1), MaxLengthValidator],
+        validators=[MinLengthValidator(1)],
     )
 
-    url = models.URLField(
-        validators=[MinLengthValidator(1), MaxLengthValidator, URLValidator],
-    )
+    url = models.URLField()
 
     # Optionnal fields
-    image_url = models.URLField(blank=True, validators=[MaxLengthValidator, URLValidator])
+    image_url = models.URLField(blank=True)
     image_small_url = models.URLField(
-        blank=True, validators=[MaxLengthValidator, URLValidator]
+        blank=True,
     )
     fat_100 = models.FloatField(blank=True, default=0)
     saturated_fat_100 = models.FloatField(blank=True, default=0)
