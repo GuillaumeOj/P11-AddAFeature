@@ -1,8 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MinLengthValidator
 from django.db import models
-from django.db.models import Count
-from django.db.models import Q
+from django.db.models import Count, Q
 
 from .category import Category
 
@@ -98,7 +97,9 @@ class ProductManager(models.Manager):
                 nutriscore_grade__lt=product.nutriscore_grade
             )
             substitutes = (
-                Product.objects.annotate(common_categories=Count("categories", filter=q))
+                Product.objects.annotate(
+                    common_categories=Count("categories", filter=q)
+                )
                 .order_by("-common_categories", "nutriscore_grade")
                 .exclude(code=product.code)
                 .exclude(name=product.name)[:30]

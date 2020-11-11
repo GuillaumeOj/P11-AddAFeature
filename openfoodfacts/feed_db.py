@@ -1,10 +1,7 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from progress.bar import IncrementalBar
 
-from product.models import Category
-from product.models import Favorite
-from product.models import Product
+from product.models import Category, Favorite, Product
 
 
 class FeedDb:

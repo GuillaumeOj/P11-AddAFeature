@@ -1,12 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound
-from django.shortcuts import redirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from .forms import ProductSearchForm
-from .models import Favorite
-from .models import Product
+from .models import Favorite, Product
 
 
 def sheet(request, product_code):
@@ -64,7 +62,9 @@ def save_favorite(request, product_code, substitute_code):
         else:
             s_name = substitute.name
             p_name = product.name
-            error_message = f"{s_name} est déjà dans vos favoris pour substituer {p_name}"
+            error_message = (
+                f"{s_name} est déjà dans vos favoris pour substituer {p_name}"
+            )
             messages.error(request, error_message)
 
         return redirect(redirect_to)

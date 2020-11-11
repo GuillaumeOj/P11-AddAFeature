@@ -1,5 +1,4 @@
-from product.models import Favorite
-from product.models import Product
+from product.models import Favorite, Product
 from tests.custom import CustomTestCase
 
 

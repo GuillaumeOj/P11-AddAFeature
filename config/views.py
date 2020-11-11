@@ -1,9 +1,11 @@
 from urllib.parse import quote
 
-from django.http import HttpResponseBadRequest
-from django.http import HttpResponseForbidden
-from django.http import HttpResponseNotFound
-from django.http import HttpResponseServerError
+from django.http import (
+    HttpResponseBadRequest,
+    HttpResponseForbidden,
+    HttpResponseNotFound,
+    HttpResponseServerError,
+)
 from django.template import loader
 from django.views.decorators.csrf import requires_csrf_token
 

@@ -1,9 +1,7 @@
 from unittest.mock import patch
 
 from django.test import TestCase
-from requests import ConnectionError
-from requests import HTTPError
-from requests import Timeout
+from requests import ConnectionError, HTTPError, Timeout
 
 from openfoodfacts.api import Api
 

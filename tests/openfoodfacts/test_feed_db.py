@@ -1,8 +1,7 @@
 from django.test import TestCase
 
 from openfoodfacts.feed_db import FeedDb
-from product.models import Category
-from product.models import Product
+from product.models import Category, Product
 
 
 class FeedDbTests(TestCase):
