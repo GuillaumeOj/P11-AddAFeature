@@ -28,7 +28,7 @@ DATABASES = {
 
 # Enable sentry
 sentry_sdk.init(
-    dsn="https://947b8a21015b4d91a53a9ca93a99852f@o453278.ingest.sentry.io/5500766",
+    dsn="https://2961436a457e47b1a2161f7d99c058be@o453278.ingest.sentry.io/5441952",
     integrations=[DjangoIntegration()],
     traces_sample_rate=1.0,
     # If you wish to associate users to errors (assuming you are using
