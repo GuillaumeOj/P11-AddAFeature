@@ -1,18 +1,12 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate
-from django.contrib.auth import get_user_model
-from django.contrib.auth import login
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from product.forms import ProductSearchForm
 
-from .forms import UserLoginForm
-from .forms import UserRegistrationForm
-
+from .forms import UserLoginForm, UserRegistrationForm
 
 User = get_user_model()
 

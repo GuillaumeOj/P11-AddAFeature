@@ -1,6 +1,5 @@
 from django.shortcuts import reverse
-from django.test import Client
-from django.test import override_settings
+from django.test import Client, override_settings
 
 from tests.custom import CustomTestCase
 from users.models import User

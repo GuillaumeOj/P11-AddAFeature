@@ -1,8 +1,5 @@
-"""Interface between the OpenFoodFacts' API and this application."""
-import os
-
-from progress.bar import IncrementalBar
 import requests
+from progress.bar import IncrementalBar
 
 
 class Api:
