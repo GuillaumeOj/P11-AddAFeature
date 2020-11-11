@@ -2,7 +2,7 @@ language: python
 python:
   - '3.8'
 
-env: DJANGO_SETTINGS_MODULE="config.settings.travis"
+env: DJANGO_SETTINGS_MODULE="config.settings.ci"
 
 services:
   - postgresql
