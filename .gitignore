@@ -3,5 +3,16 @@
 local_settings.py
 db.sqlite3*
 *pycache*
+
+# NPM stuff:
 node_modules
+
+# Coverage stuff:
 htmlcov/
+
+# Tox stuff:
+.tox/
+*.egg*
+
+# Other
+.env*

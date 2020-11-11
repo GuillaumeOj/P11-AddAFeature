@@ -44,7 +44,8 @@ class Migration(migrations.Migration):
             model_name="product",
             name="name",
             field=models.CharField(
-                max_length=100, validators=[django.core.validators.MinLengthValidator(2)]
+                max_length=100,
+                validators=[django.core.validators.MinLengthValidator(2)],
             ),
         ),
         migrations.AlterField(

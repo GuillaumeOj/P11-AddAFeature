@@ -64,7 +64,9 @@ def save_favorite(request, product_code, substitute_code):
         else:
             s_name = substitute.name
             p_name = product.name
-            error_message = f"{s_name} est déjà dans vos favoris pour substituer {p_name}"
+            error_message = (
+                f"{s_name} est déjà dans vos favoris pour substituer {p_name}"
+            )
             messages.error(request, error_message)
 
         return redirect(redirect_to)

@@ -1,4 +1,3 @@
-"""Django settings for the local project."""
 import os
 
 from dotenv import find_dotenv
@@ -6,8 +5,7 @@ from dotenv import load_dotenv
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-# Import the base settings
-from .base import *
+from .base import *  # noqa: F401, F403
 
 
 ALLOWED_HOSTS = [
