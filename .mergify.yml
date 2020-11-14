@@ -4,8 +4,8 @@ pull_request_rules:
       - "author=GuillaumeOj"
       - "label!=work-in-progress"
       - "label!=manual merge"
-      - "check-success=Travis CI - Branch"
-      - "check-success=Travis CI - Pull Request"
+      - "check-success=pep8"
+      - "check-success=py39"
     actions:
       merge:
         strict: "smart"

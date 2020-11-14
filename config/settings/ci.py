@@ -13,9 +13,9 @@ DEBUG = True if os.getenv("DEBUG") == "True" else False
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("POSTGRES_NAME", default="postgres"),
-        "USER": os.getenv("POSTGRES_USER", default="postgres"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB", default=""),
+        "USER": os.getenv("POSTGRES_USER", default=""),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD", default=""),
         "HOST": os.getenv("POSTGRES_HOST", default=""),
         "PORT": os.getenv("POSTGRES_PORT", default=""),
