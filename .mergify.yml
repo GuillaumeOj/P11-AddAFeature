@@ -6,6 +6,7 @@ pull_request_rules:
       - "label!=manual merge"
       - "check-success=pep8"
       - "check-success=py39"
+      - "check-success=coverage"
     actions:
       merge:
         strict: "smart"
