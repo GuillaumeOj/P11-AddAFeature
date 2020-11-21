@@ -11,8 +11,13 @@ ALLOWED_HOSTS = [
 ]
 
 load_dotenv(find_dotenv())
+
+SENDGRID_APY_KEY = os.getenv("SENDGRID_APY_KEY")
+
 SECRET_KEY = os.getenv("SECRET_KEY")
+
 DEBUG = True if os.getenv("DEBUG") == "True" else False
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
