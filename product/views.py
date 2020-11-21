@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound
+from django.views.decorators.http import require_http_methods
 from django.shortcuts import redirect, render
+import sendgrid
 
 from .forms import ProductSearchForm
 from .models import Favorite, Product
@@ -62,9 +64,7 @@ def save_favorite(request, product_code, substitute_code):
         else:
             s_name = substitute.name
             p_name = product.name
-            error_message = (
-                f"{s_name} est déjà dans vos favoris pour substituer {p_name}"
-            )
+            error_message = f"{s_name} est déjà dans vos favoris pour substituer {p_name}"
             messages.error(request, error_message)
 
         return redirect(redirect_to)
@@ -87,3 +87,24 @@ def favorites(request):
     context["favorites"] = favorites
 
     return render(request, "product/favorites.html", context=context)
+
+
+@require_http_methods(["POST"])
+@login_required
+def send_product_sheet(request):
+    """Send a product sheet by email to the current user.
+
+    Expect an input value with the code of the product to send by e-mail.
+    :return: redirect to the previous page
+    :rtype: HttpResponseRedirect
+    """
+
+    if request.POST:
+        product = Product.objects.get_product_by_code(request.POST.get("product_code"))
+        redirect_to = request.POST.get("next")
+
+        if product:
+
+            return redirect(redirect_to)
+
+    return HttpResponseNotFound()
