@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "product.apps.ProductConfig",
     "search.apps.SearchConfig",
     "openfoodfacts.apps.OpenfoodfactsConfig",
+    "mjml",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
