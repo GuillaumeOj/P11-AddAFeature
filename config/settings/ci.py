@@ -8,7 +8,10 @@ ALLOWED_HOSTS = ["*"]
 
 load_dotenv(find_dotenv(filename=".env-local"))
 
+SENDGRID_APY_KEY = os.getenv("SENDGRID_APY_KEY")
+
 SECRET_KEY = os.getenv("SECRET_KEY", default="foo-key")
+
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 
 DATABASES = {
