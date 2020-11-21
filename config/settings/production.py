@@ -12,8 +12,6 @@ ALLOWED_HOSTS = [
 
 load_dotenv(find_dotenv())
 
-SENDGRID_APY_KEY = os.getenv("SENDGRID_APY_KEY")
-
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True if os.getenv("DEBUG") == "True" else False
@@ -38,3 +36,11 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True,
 )
+
+# Settings for email client
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_USE_SSL = True if os.getenv("EMAIL_USE_SSL") else False
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
