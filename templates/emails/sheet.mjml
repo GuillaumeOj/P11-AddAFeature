@@ -1,3 +1,4 @@
+{% load static %}
 {% load mjml %}
 {% mjml %}
 <mjml>
@@ -32,11 +33,7 @@
 <mj-body>
     <mj-section background-color="#E8A75D">
         <mj-column width="20%" padding="0">
-            <mj-raw>
-                <!-- htmlmin:ignore -->
-                <img alt="Logo Pur Beurre" src="{% static "dist/assets/img/logo_pur_beurre.svg" %}" height="50px" />
-                <!-- htmlmin:ignore -->
-            </mj-raw>
+          <mj-image src="{% static "dist/assets/img/logo_pur_beurre.svg" %}" height="50px" />
         </mj-column>
         <mj-column width="80%" padding="0">
             <mj-text color="#C45525" align="center">
@@ -47,11 +44,9 @@
     <mj-section background-color="#345A61">
         <mj-column width="100%">
             <mj-text color="#FFFFFF" align="justify">
-                <mj-raw>
-                    <!-- htmlmin:ignore -->
-                    <h2>Bonjour {{ user.first_name }} !</h2>
-                    <!-- htmlmin:ignore -->
-                </mj-raw>
+              <h2>Bonjour {{ user.first_name }} !</h2>
+            </mj-text>
+            <mj-text color="#FFFFFF" align="justify">
                 Merci de votre confiance ! Nous sommes ravis de vous transmettre la fiche du produit que vous nous avez demandé. Nous espérons vous revoir rapidement sur notre site !
             </mj-text>
             <mj-divider border-color="#C45525"/>
@@ -62,15 +57,11 @@
             </mj-text>
         </mj-column>
         <mj-column width="40%">
-            <mj-raw>
-                <!-- htmlmin:ignore -->
-                {% if product.image_url $}
-                <img alt="Photo {{ product.name }}" src="{{ product.image_url }}" height="150px" />
-                {% else %}
-                <img alt="Logo Pur Beurre" src="{% static "dist/assets/img/logo_pur_beurre.svg" %}" height="150px" />
-                {% endif %}
-                <!-- htmlmin:ignore -->
-            </mj-raw>
+          {% if product.image_url %}
+          <mj-image alt="Photo {{ product.name }}" src="{{ product.image_url }}" height="150px" />
+            {% else %}
+          <mj-image alt="Logo Pur Beurre" src="{% static "dist/assets/img/logo_pur_beurre.svg" %}" height="150px" />
+            {% endif %}
         </mj-column>
         <mj-column width="50%">
             <mj-text color="#FFFFFF" align="center">

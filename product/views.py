@@ -1,4 +1,3 @@
-import logging
 import smtplib
 
 from django.contrib import messages
@@ -8,12 +7,10 @@ from django.http import HttpResponseNotFound
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import redirect, render
 from django.template import loader
+from django.urls import reverse
 
 from .forms import ProductSearchForm
 from .models import Favorite, Product
-
-
-logger = logging.getlogger(__name__)
 
 
 def sheet(request, product_code):
@@ -100,7 +97,7 @@ def favorites(request):
 
 @require_http_methods(["POST"])
 @login_required
-def send_product_sheet_by_email(request):
+def sheet_by_email(request):
     """Send a product sheet by email to the current user.
 
     Expect an input value with the code of the product to send by e-mail.
@@ -108,35 +105,32 @@ def send_product_sheet_by_email(request):
     :rtype: HttpResponseRedirect
     """
 
-    if request.POST:
-        product = Product.objects.get_product_by_code(request.POST.get("product_code"))
-        redirect_to = request.POST.get("next")
+    product = Product.objects.get_product_by_code(request.POST.get("product_code"))
 
-        if product:
-            subject = f"Pur Beurre - Votre fiche pour {product.name}"
-            to = [request.user.email]
+    if not product:
+        return HttpResponseNotFound()
 
-            context = {
-                "user": request.user,
-                "product": request.product,
-                "sheet_url": request.sheet_url,
-            }
+    redirect_to = reverse("product:sheet", args=[product.code])
 
-            text_content = loader.render_to_string("emails/sheet_text.html", context)
-            html_content = loader.render_to_string("emails/sheet.mjml", context)
+    subject = f"Pur Beurre - Votre fiche pour {product.name}"
+    to = [request.user.email]
 
-            try:
-                send_mail(subject, text_content, None, to, html_message=html_content)
-                messages.success("Votre fiche est envoyée !")
-            except smtplib.SMTPException as e:
-                error = e.strerror
-                error += f"Could'nt send email (subject: {subject}, to: {to[0]})"
-                logger.error(error)
+    context = {
+        "user": request.user,
+        "product": product,
+        "sheet_url": redirect_to,
+    }
 
-                messages.error(
-                    "Une erreur s'est produite. Votre fiche n'a pas était envoyée."
-                )
+    text_content = loader.render_to_string("emails/sheet_text.html", context)
+    html_content = loader.render_to_string("emails/sheet.mjml", context)
 
-            return redirect(redirect_to)
+    try:
+        send_mail(subject, text_content, None, to, html_message=html_content)
+        messages.success(request, "Votre fiche est envoyée !")
+    except smtplib.SMTPException:
+        messages.error(
+            request,
+            "Une erreur s'est produite. Votre fiche n'a pas était envoyée.",
+        )
 
-    return HttpResponseNotFound()
+    return redirect(redirect_to)
