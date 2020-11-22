@@ -121,8 +121,8 @@ def sheet_by_email(request):
         "sheet_url": redirect_to,
     }
 
-    text_content = loader.render_to_string("emails/sheet_text.html", context)
-    html_content = loader.render_to_string("emails/sheet.mjml", context)
+    text_content = loader.render_to_string("product/emails/sheet_text.html", context)
+    html_content = loader.render_to_string("product/emails/sheet.mjml", context)
 
     try:
         send_mail(subject, text_content, None, to, html_message=html_content)
