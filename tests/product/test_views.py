@@ -104,3 +104,36 @@ class ProductViewsTests(CustomTestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 302)
+
+    def test_sheet_by_email(self):
+        self.client.force_login(self.user)
+        url = reverse("product:sheet_by_email")
+
+        product_url = reverse("product:sheet", args=[self.product.code])
+        data = {
+            "product_code": self.product.code,
+            "next": product_url,
+        }
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 302)
+
+    def test_sheet_by_email_with_get(self):
+        self.client.force_login(self.user)
+        url = reverse("product:sheet_by_email")
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 405)
+
+    def test_sheet_by_email_without_login(self):
+        url = reverse("product:sheet_by_email")
+
+        product_url = reverse("product:sheet", args=[self.product.code])
+        data = {
+            "product_code": self.product.code,
+            "next": product_url,
+        }
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 302)

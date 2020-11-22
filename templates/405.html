@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Fausse route !{% endblock title %}
+{% block header %}
+<header class="masthead">
+  <div class="container h-100">
+    <div class="row h-50 align-items-end text-center">
+      <div class="col">
+        <h1 class="text-uppercase text-white font-weight-bold">Oups ! Vous ne pouvez pas accéder à cette page.</h1>
+        <hr class="divider my-4" />
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col">
+        <p class="text-white-75 font-weight-light">
+          Ce n'est pas ici que vous trouverez les meilleurs produits ! Essayez <a
+            href="{% url "homepage:index" %}">ici</a> ! Vous aurez sûrement plus de
+          chance !
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock header %}
