@@ -1,12 +1,19 @@
+import logging
+import smtplib
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.http import HttpResponseNotFound
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import redirect, render
-import sendgrid
+from django.template import loader
 
 from .forms import ProductSearchForm
 from .models import Favorite, Product
+
+
+logger = logging.getlogger(__name__)
 
 
 def sheet(request, product_code):
@@ -64,7 +71,9 @@ def save_favorite(request, product_code, substitute_code):
         else:
             s_name = substitute.name
             p_name = product.name
-            error_message = f"{s_name} est déjà dans vos favoris pour substituer {p_name}"
+            error_message = (
+                f"{s_name} est déjà dans vos favoris pour substituer {p_name}"
+            )
             messages.error(request, error_message)
 
         return redirect(redirect_to)
@@ -91,7 +100,7 @@ def favorites(request):
 
 @require_http_methods(["POST"])
 @login_required
-def send_product_sheet(request):
+def send_product_sheet_by_email(request):
     """Send a product sheet by email to the current user.
 
     Expect an input value with the code of the product to send by e-mail.
@@ -104,6 +113,29 @@ def send_product_sheet(request):
         redirect_to = request.POST.get("next")
 
         if product:
+            subject = f"Pur Beurre - Votre fiche pour {product.name}"
+            to = [request.user.email]
+
+            context = {
+                "user": request.user,
+                "product": request.product,
+                "sheet_url": request.sheet_url,
+            }
+
+            text_content = loader.render_to_string("emails/sheet_text.html", context)
+            html_content = loader.render_to_string("emails/sheet.mjml", context)
+
+            try:
+                send_mail(subject, text_content, None, to, html_message=html_content)
+                messages.success("Votre fiche est envoyée !")
+            except smtplib.SMTPException as e:
+                error = e.strerror
+                error += f"Could'nt send email (subject: {subject}, to: {to[0]})"
+                logger.error(error)
+
+                messages.error(
+                    "Une erreur s'est produite. Votre fiche n'a pas était envoyée."
+                )
 
             return redirect(redirect_to)
 
