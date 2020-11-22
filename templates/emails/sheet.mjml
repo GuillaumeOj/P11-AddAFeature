@@ -100,7 +100,7 @@
         </mj-column>
         <mj-column width="100%">
             <mj-divider border-color="#C45525"/>
-                <mj-button href="#" color="#C45525" background-color="#E8A75D" font-weight="bold">
+            <mj-button href="{{ sheet_url }}" color="#C45525" background-color="#E8A75D" font-weight="bold">
                     Retrouvez ce produit sur notre site
                 </mj-button>
         </mj-column>
