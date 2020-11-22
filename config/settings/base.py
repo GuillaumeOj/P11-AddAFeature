@@ -104,3 +104,7 @@ STATIC_URL = "/static/"
 
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+# Settings for mjml
+MJML_BACKEND_MODE = "cmd"
+MJML_EXEC_CMD = os.path.join(BASE_DIR, "node_modules", ".bin", "mjml")
