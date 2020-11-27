@@ -4,10 +4,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponseNotFound
-from django.views.decorators.http import require_http_methods
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.urls import reverse
+from django.views.decorators.http import require_http_methods
 
 from .forms import ProductSearchForm
 from .models import Favorite, Product
