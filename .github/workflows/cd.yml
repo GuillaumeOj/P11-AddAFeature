@@ -1,0 +1,21 @@
+name: CD
+
+on:
+  push:
+    branches:
+      master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Deploy to production
+      run: |
+        mkdir -p ~/.ssh
+        chmod 777 ~/.ssh
+        echo ${{ secrets.PRIVATE_KEY }} > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        echo ${{ secrets.PUBLIC_KEY }} > ~/.ssh/id_rsa.pub
+        chmod 664 ~/.ssh/id_rsa.pub
+        ssh -A {{ secrets.PROD_USER }}@{{ secrets.PROD_ADRESS }} "bash -s" < deploy.sh
