@@ -1,7 +1,13 @@
+import smtplib
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
+from django.template import loader
+from django.urls import reverse
+from django.views.decorators.http import require_http_methods
 
 from .forms import ProductSearchForm
 from .models import Favorite, Product
@@ -87,3 +93,44 @@ def favorites(request):
     context["favorites"] = favorites
 
     return render(request, "product/favorites.html", context=context)
+
+
+@require_http_methods(["POST"])
+@login_required
+def sheet_by_email(request):
+    """Send a product sheet by email to the current user.
+
+    Expect an input value with the code of the product to send by e-mail.
+    :return: redirect to the previous page
+    :rtype: HttpResponseRedirect
+    """
+
+    product = Product.objects.get_product_by_code(request.POST.get("product_code"))
+
+    if not product:
+        return HttpResponseNotFound()
+
+    redirect_to = reverse("product:sheet", args=[product.code])
+
+    subject = f"Pur Beurre - Votre fiche pour {product.name}"
+    to = [request.user.email]
+
+    context = {
+        "user": request.user,
+        "product": product,
+        "sheet_url": redirect_to,
+    }
+
+    text_content = loader.render_to_string("product/emails/sheet_text.html", context)
+    html_content = loader.render_to_string("product/emails/sheet.mjml", context)
+
+    try:
+        send_mail(subject, text_content, None, to, html_message=html_content)
+        messages.success(request, "Votre fiche est envoyée !")
+    except smtplib.SMTPException:
+        messages.error(
+            request,
+            "Une erreur s'est produite. Votre fiche n'a pas était envoyée.",
+        )
+
+    return redirect(redirect_to)

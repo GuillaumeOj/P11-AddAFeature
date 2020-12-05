@@ -1,0 +1,19 @@
+Bonjour {{ user.first_name }} !
+
+Merci de votre confiance ! Nous sommes ravis de vous transmettre la fiche du produit que vous nous avez demandé. Nous
+espérons vous revoir rapidement sur notre site !
+
+=== {{ product.name }} ===
+
+Nutriscore: {{ product.nutriscore_grade }}
+Repères nutritionnels pour 100g:
+- Lipides {{ product.fat_100 }} g
+- Acides gras saturés {{ product.saturated_fat_100 }} g
+- Sucres {{ product.sugars_100 }} g
+- Sel {{ product.salt_100 }} g
+
+======
+
+Retrouvez ce produit sur notre site: {{ sheet_url }}
+
+Message envoyé par Pur Beurre merci de ne pas y répondre.

@@ -1,3 +1,4 @@
+from django.core import mail
 from django.shortcuts import reverse
 from django.test import Client, override_settings
 
@@ -104,3 +105,49 @@ class ProductViewsTests(CustomTestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 302)
+
+    def test_sheet_by_email(self):
+        self.client.force_login(self.user)
+        url = reverse("product:sheet_by_email")
+
+        product_url = reverse("product:sheet", args=[self.product.code])
+        data = {
+            "product_code": self.product.code,
+            "next": product_url,
+        }
+
+        response = self.client.post(url, data, follow=True)
+        self.assertEqual(response.status_code, 200)
+
+        messages, _ = response.context["messages"]._get()
+        self.assertEqual(str(messages[0]), "Votre fiche est envoyée !")
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(
+            mail.outbox[0].subject, "Pur Beurre - Votre fiche pour Nutella Biscuits"
+        )
+        self.assertEqual(mail.outbox[0].to, ["guillaume.ojardias@gmail.com"])
+
+    def test_sheet_by_email_with_get(self):
+        self.client.force_login(self.user)
+        url = reverse("product:sheet_by_email")
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 405)
+
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_sheet_by_email_without_login(self):
+        url = reverse("product:sheet_by_email")
+
+        product_url = reverse("product:sheet", args=[self.product.code])
+        data = {
+            "product_code": self.product.code,
+            "next": product_url,
+        }
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 302)
+
+        self.assertEqual(len(mail.outbox), 0)
