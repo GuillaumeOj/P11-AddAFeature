@@ -1,0 +1,15 @@
+name: CD
+
+on:
+  push:
+    branches:
+      master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Deploy to production
+      run: |
+        ssh -A guillaume@167.172.169.38 "bash -s" < deploy.sh
