@@ -1,5 +1,6 @@
 DEBUG=True
 POSTGRES_DB='your-database-name'
 POSTGRES_USER='user-allowed-to-access-the-database'
+POSTGRES_PASSWORD='a-strong-password-for-your-db'
 POSTGRES_HOST='localhost' # Default parameter
 POSTGRES_PORT=5432        # Default parameter
