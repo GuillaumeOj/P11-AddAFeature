@@ -1,5 +1,7 @@
+import sys
+
 import requests
-from progress.bar import IncrementalBar
+from django.core.management import base, color
 
 
 class Api:
@@ -24,6 +26,9 @@ class Api:
     def get_products(self):
         """Get products from OpenFoodFacts return a list of raw products."""
 
+        style = color.make_style()
+        stdout = base.OutputWrapper(sys.stdout)
+
         parameters = {
             "json": True,
             "action": "process",
@@ -38,26 +43,31 @@ class Api:
             "fields": ",".join(self.FIELDS),
         }
         products = list()
-        bar = IncrementalBar(
-            "Downloading products", max=self.PAGES, suffix="%(percent)d%%"
-        )
-        bar.start()
+        stdout.write("==== Download products from OpenFoodFacts ====")
         for page in range(self.PAGES):
+            stdout.write(f"Downloading page {page}... ")
+
             parameters["page"] = page
+
             try:
                 response = requests.get(self.URL_BASE, params=parameters)
                 response.raise_for_status()
             except requests.HTTPError as err:
+                stdout.write(style.ERROR("ERROR"))
                 raise err
             except requests.ConnectionError as err:
+                stdout.write(style.ERROR("ERROR"))
                 raise err
             except requests.Timeout as err:
+                stdout.write(style.ERROR("ERROR"))
                 raise err
 
             result = response.json()
+
             if result.get("products"):
                 products.extend(result["products"])
-            bar.next()
-        bar.finish()
+                stdout.write(style.SUCCESS("DONE"))
+            else:
+                stdout.write(style.WARNING("FAIL"))
 
         return products
