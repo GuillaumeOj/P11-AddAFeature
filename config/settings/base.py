@@ -108,3 +108,11 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # Settings for mjml
 MJML_BACKEND_MODE = "cmd"
 MJML_EXEC_CMD = os.path.join(BASE_DIR, "node_modules", ".bin", "mjml")
+
+# Settings for email client
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "apikey"
+EMAIL_HOST_PASSWORD = os.getenv("SENDGRID_API_KEY")
+EMAIL_PORT = 587
+EMAIL_USE_TSL = True
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")

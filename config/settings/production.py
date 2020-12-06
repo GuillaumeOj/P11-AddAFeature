@@ -36,11 +36,3 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True,
 )
-
-# Settings for email client
-EMAIL_HOST = os.getenv("SENDGRID_HOST")
-EMAIL_PORT = os.getenv("SENDGRID_PORT")
-EMAIL_USER = os.getenv("SENDGRID_USER")
-EMAIL_PASSWORD = os.getenv("SENDGRID_PASSWORD")
-EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
