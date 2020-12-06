@@ -1,7 +1,6 @@
 *.log
 local_settings.py
 *pycache*
-node_modules
 htmlcov/
 .env*
 .tox/
