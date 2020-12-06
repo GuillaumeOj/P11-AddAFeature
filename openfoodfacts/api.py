@@ -42,6 +42,11 @@ class Api:
             "tag_1": "to-be-checked",
             "fields": ",".join(self.FIELDS),
         }
+
+        headers = {
+            "user-agent": "PurBeurreOC - Web - Version 0.1.0 - projet-11.ojardias.io",
+        }
+
         products = list()
         stdout.write("==== Download products from OpenFoodFacts ====")
         for page in range(self.PAGES):
@@ -50,7 +55,9 @@ class Api:
             parameters["page"] = page
 
             try:
-                response = requests.get(self.URL_BASE, params=parameters)
+                response = requests.get(
+                    self.URL_BASE, params=parameters, headers=headers
+                )
                 response.raise_for_status()
             except requests.HTTPError as err:
                 stdout.write(style.ERROR("ERROR"))
