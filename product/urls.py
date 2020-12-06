@@ -11,5 +11,9 @@ urlpatterns = [
         name="save",
     ),
     path("favorites/", views.favorites, name="favorites"),
-    path("sheet_by_email/", views.sheet_by_email, name="sheet_by_email"),
+    path(
+        "sheet_by_email/<str:product_code>/",
+        views.sheet_by_email,
+        name="sheet_by_email",
+    ),
 ]

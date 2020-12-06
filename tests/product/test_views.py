@@ -108,15 +108,9 @@ class ProductViewsTests(CustomTestCase):
 
     def test_sheet_by_email(self):
         self.client.force_login(self.user)
-        url = reverse("product:sheet_by_email")
+        url = reverse("product:sheet_by_email", args=[self.product.code])
 
-        product_url = reverse("product:sheet", args=[self.product.code])
-        data = {
-            "product_code": self.product.code,
-            "next": product_url,
-        }
-
-        response = self.client.post(url, data, follow=True)
+        response = self.client.get(url, follow=True)
         self.assertEqual(response.status_code, 200)
 
         messages, _ = response.context["messages"]._get()
@@ -128,25 +122,20 @@ class ProductViewsTests(CustomTestCase):
         )
         self.assertEqual(mail.outbox[0].to, ["guillaume.ojardias@gmail.com"])
 
-    def test_sheet_by_email_with_get(self):
+    def test_sheet_by_email_with_post(self):
         self.client.force_login(self.user)
-        url = reverse("product:sheet_by_email")
+        url = reverse("product:sheet_by_email", args=[self.product.code])
 
-        response = self.client.get(url)
+        response = self.client.post(url, {})
 
         self.assertEqual(response.status_code, 405)
 
         self.assertEqual(len(mail.outbox), 0)
 
     def test_sheet_by_email_without_login(self):
-        url = reverse("product:sheet_by_email")
+        url = reverse("product:sheet_by_email", args=[self.product.code])
 
-        product_url = reverse("product:sheet", args=[self.product.code])
-        data = {
-            "product_code": self.product.code,
-            "next": product_url,
-        }
-        response = self.client.post(url, data)
+        response = self.client.get(url)
 
         self.assertEqual(response.status_code, 302)
 
