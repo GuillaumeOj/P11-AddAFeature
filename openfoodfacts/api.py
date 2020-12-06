@@ -9,8 +9,8 @@ class Api:
 
     # Parameters for the API
     URL_BASE = "https://fr.openfoodfacts.org/cgi/search.pl"
-    PAGE_SIZE = 1000
-    PAGES = 3
+    PAGE_SIZE = 500
+    PAGES = 5
     SORT_BY = "unique_scans_n"
     FIELDS = [
         "code",
