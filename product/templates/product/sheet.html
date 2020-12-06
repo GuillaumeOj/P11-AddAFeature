@@ -3,73 +3,78 @@
 {% block title %}Fiche produit{% endblock title %}
 {% block header %}
 <header class="masthead reduced"
-	style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url({% if product.image_url %}{{ product.image_url }}{% else %}{% static "dist/assets/img/logo_pur_beurre.svg" %}{% endif %}) repeat-x; background-size: contain;">
+  style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url({% if product.image_url %}{{ product.image_url }}{% else %}{% static "dist/assets/img/logo_pur_beurre.svg" %}{% endif %}) repeat-x; background-size: contain;">
 
-	<div class="container">
-		<div class="row text-center">
-			<h1 class="col text-white font-weight-bold">
-				{% if product %}
-				{{ product.name }}
-				{% else %}
-				Pas de résultat
-				{% endif %}
-			</h1>
-		</div>
-	</div>
+  <div class="container">
+    <div class="row text-center">
+      <h1 class="col text-white font-weight-bold">
+        {% if product %}
+        {{ product.name }}
+        {% else %}
+        Pas de résultat
+        {% endif %}
+      </h1>
+    </div>
+  </div>
 </header>
 {% endblock header %}
 {% block content %}
 <!-- Choose a substitute -->
 <div class="page-section bg-moules p-0" id="product_sheet">
-	<div class="container py-3">
-		<div class="row">
-			{% if next %}
-			<a class="h5 font-weigth-bold" href="{{ next }}">
-				<i class="fas fa-chevron-left"></i>
-				Retour
-			</a>
-			{% endif %}
-		</div>
-		{% if product %}
-		<div class="row row-cols-1 row-cols-sm-2 my-5">
-			<div class="col text-center mb-5">
-				<div class="row">
-					<h2 class="col">Nutriscore</h2>
-				</div>
-				<div class="row btn-group nutriscore">
-					{% for i in "ABCDE"|make_list %}
-					<div
-						class="btn score-{{ i|lower }}{% if product.nutriscore_grade == i %} current{% endif %}">
-						{{ i }}</div>
-					{% endfor %}
-				</div>
-			</div>
-			<div class="col text-center">
-				<div class="row">
-					<h2>Repères nutritionnels pour 100g</h2>
-				</div>
-				{% include "product/_nutriment.html" with nutriment=product.fat_100 verbose_name="Lipides" floor=3 ceil=20 %}
-				{% include "product/_nutriment.html" with nutriment=product.saturated_fat_100 verbose_name="Acides gras saturés" floor=1.5 ceil=5 %}
-				{% include "product/_nutriment.html" with nutriment=product.sugars_100 verbose_name="Sucres" floor=5 ceil=12.5 %}
-				{% include "product/_nutriment.html" with nutriment=product.salt_100 verbose_name="Sel" floor=0.3 ceil=1.5 %}
-			</div>
-		</div>
-		<div class="row my-5">
-			<div class="col btn btn-primary">
-				<a href="{{ product.url }}" target="_blank" rel="noreferrer" class="text-white">
-					Voir la fiche sur Open Food Facts
-				</a>
-			</div>
-		</div>
-		{% else %}
-		<h5 class="text-center text-white">Ce produit n'existe pas.</h5>
-		<p class="text-center text-white">Faire une nouvelle recherche :</p>
-		<div class="row text-center">
-			<div class="col px-5">
-				{% include "search/_search_form.html" with type="main" %}
-			</div>
-		</div>
-		{% endif %}
-	</div>
+  <div class="container py-3">
+    <div class="row">
+      {% if next %}
+      <a class="h5 font-weigth-bold" href="{{ next }}">
+        <i class="fas fa-chevron-left"></i>
+        Retour
+      </a>
+      {% endif %}
+    </div>
+    {% if product %}
+    <div class="row row-cols-1 row-cols-sm-2 my-5">
+      <div class="col text-center mb-5">
+        <div class="row">
+          <h2 class="col">Nutriscore</h2>
+        </div>
+        <div class="row btn-group nutriscore">
+          {% for i in "ABCDE"|make_list %}
+          <div class="btn score-{{ i|lower }}{% if product.nutriscore_grade == i %} current{% endif %}">
+            {{ i }}</div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col text-center">
+        <div class="row">
+          <h2>Repères nutritionnels pour 100g</h2>
+        </div>
+        {% include "product/_nutriment.html" with nutriment=product.fat_100 verbose_name="Lipides" floor=3 ceil=20 %}
+        {% include "product/_nutriment.html" with nutriment=product.saturated_fat_100 verbose_name="Acides gras saturés" floor=1.5 ceil=5 %}
+        {% include "product/_nutriment.html" with nutriment=product.sugars_100 verbose_name="Sucres" floor=5 ceil=12.5 %}
+        {% include "product/_nutriment.html" with nutriment=product.salt_100 verbose_name="Sel" floor=0.3 ceil=1.5 %}
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col btn btn-primary">
+        <a href="{{ product.url }}" target="_blank" rel="noreferrer" class="text-white">
+          Voir la fiche sur Open Food Facts
+        </a>
+      </div>
+      <div class="col btn btn-primary">
+        <a href="{% url "product:sheet_by_email" product.code %}{% if next %}?next={{ next }}{% endif %}"
+          class="text-white">
+          Envoyer la fiche par e-mail
+        </a>
+      </div>
+    </div>
+    {% else %}
+    <h5 class="text-center text-white">Ce produit n'existe pas.</h5>
+    <p class="text-center text-white">Faire une nouvelle recherche :</p>
+    <div class="row text-center">
+      <div class="col px-5">
+        {% include "search/_search_form.html" with type="main" %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
 </div>
 {% endblock content %}
