@@ -38,9 +38,9 @@ sentry_sdk.init(
 )
 
 # Settings for email client
-EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_PORT = os.getenv("EMAIL_PORT")
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-EMAIL_USE_SSL = True if os.getenv("EMAIL_USE_SSL") else False
+EMAIL_HOST = os.getenv("SENDGRID_HOST")
+EMAIL_PORT = os.getenv("SENDGRID_PORT")
+EMAIL_USER = os.getenv("SENDGRID_USER")
+EMAIL_PASSWORD = os.getenv("SENDGRID_PASSWORD")
+EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
