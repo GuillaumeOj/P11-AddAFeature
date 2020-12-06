@@ -1,10 +1,17 @@
 [![Mergify Status][mergify-status]][mergify]
-![CI](https://github.com/GuillaumeOj/P11-AddAFeature/workflows/CI/badge.svg)
+[![CI][ci-badge]][ci]
+[![CD][cd-badge]][cd]
 [![Code style: black][black-badge]][black]
 [![Coverage Status][coverage-status]][coverage]
 
 [mergify]: https://mergify.io
 [mergify-status]: https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges/GuillaumeOj/P11-AddAFeature&style=flat
+
+[ci-badge]: https://github.com/GuillaumeOj/P11-AddAFeature/workflows/CI/badge.svg
+[ci]: https://github.com/GuillaumeOj/P11-AddAFeature/actions?query=workflow%3ACI
+
+[cd-badge]: https://github.com/GuillaumeOj/P11-AddAFeature/workflows/CD/badge.svg
+[cd]: https://github.com/GuillaumeOj/P11-AddAFeature/actions?query=workflow%3ACD
 
 [black]: https://github.com/psf/black
 [black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
