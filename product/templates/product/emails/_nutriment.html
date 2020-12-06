@@ -1,0 +1,6 @@
+<div>
+  <div class="{% if nutriment <= floor %}green{% elif floor < nutriment <= ceil %}yellow{% else %}red{% endif %}"
+    style="border-radius: 50%; width: 20px; height: 20px; display: inline-block; vertical-align: middle; margin-right: 10px;">
+  </div>
+  <p style="display: inline-block;"><strong>{{ verbose_name }}</strong> {{ nutriment }} g</p>
+</div>

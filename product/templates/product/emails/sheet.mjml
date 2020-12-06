@@ -1,0 +1,108 @@
+{% load static %}
+{% load mjml %}
+{% mjml %}
+<mjml>
+<mj-head>
+    <mj-style>
+        .green {
+        background-color: green;
+        }
+        .yellow {
+        background-color: yellow;
+        }
+        .red {
+        background-color: red;
+        }
+        .nutriscore-grade.score-a {
+        background-color: #038141;
+        }
+        .nutriscore-grade.score-b {
+        background-color: #85bb2f;
+        }
+        .nutriscore-grade.score-c {
+        background-color: #fecb02;
+        }
+        .nutriscore-grade.score-d {
+        background-color: #ee8100;
+        }
+        .nutriscore-grade.score-e {
+        background-color: #e63e11;
+        }
+    </mj-style>
+</mj-head>
+<mj-body>
+    <mj-section background-color="#E8A75D">
+        <mj-column width="20%" padding="0">
+          <mj-image src="{% static "dist/assets/img/logo_pur_beurre.svg" %}" height="50px" />
+        </mj-column>
+        <mj-column width="80%" padding="0">
+            <mj-text color="#C45525" align="center">
+                <h1>Votre fiche produit par Pur Beurre</h1>
+            </mj-text>
+        </mj-column>
+    </mj-section>
+    <mj-section background-color="#345A61">
+        <mj-column width="100%">
+            <mj-text color="#FFFFFF" align="justify">
+              <h2>Bonjour {{ user.first_name }} !</h2>
+            </mj-text>
+            <mj-text color="#FFFFFF" align="justify">
+                Merci de votre confiance ! Nous sommes ravis de vous transmettre la fiche du produit que vous nous avez demandé. Nous espérons vous revoir rapidement sur notre site !
+            </mj-text>
+            <mj-divider border-color="#C45525"/>
+        </mj-column>
+        <mj-column width="60%">
+            <mj-text color="#FFFFFF" align="center">
+                <h1>{{ product.name }}</h1>
+            </mj-text>
+        </mj-column>
+        <mj-column width="40%">
+          {% if product.image_url %}
+          <mj-image alt="Photo {{ product.name }}" src="{{ product.image_url }}" height="150px" />
+            {% else %}
+          <mj-image alt="Logo Pur Beurre" src="{% static "dist/assets/img/logo_pur_beurre.svg" %}" height="150px" />
+            {% endif %}
+        </mj-column>
+        <mj-column width="50%">
+            <mj-text color="#FFFFFF" align="center">
+                <h2>Nutriscore</h2>
+                <mj-raw align="center">
+                    <!-- htmlmin:ignore -->
+                    <div class="nutriscore-grade score-{{ product.nutriscore_grade|lower }}"
+                         style="border-radius: 50%; border: solid #FFFFFF 3px; width: 50px; height: 50px; display: inline-block; font-size: 40px; text-align: center; line-height: 47px; font-weight:bold;">
+                        {{ product.nutriscore_grade }}
+                    </div>
+                    <!-- htmlmin:ignore -->
+                </mj-raw>
+            </mj-text>
+        </mj-column>
+        <mj-column width="50%">
+            <mj-text color="#FFFFFF" align="center">
+                <h2>Repères nutritionnels pour 100g</h2>
+                <mj-raw>
+                    <!-- htmlmin:ignore -->
+                    {% include "product/_nutriment.html" with nutriment=product.fat_100 verbose_name="Lipides" floor=3 ceil=20 %}
+                    {% include "product/_nutriment.html" with nutriment=product.saturated_fat_100 verbose_name="Acides gras saturés" floor=1.5 ceil=5 %}
+                    {% include "product/_nutriment.html" with nutriment=product.sugars_100 verbose_name="Sucres" floor=5 ceil=12.5 %}
+                    {% include "product/_nutriment.html" with nutriment=product.salt_100 verbose_name="Sel" floor=0.3 ceil=1.5 %}
+                    <!-- htmlmin:ignore -->
+                </mj-raw>
+            </mj-text>
+        </mj-column>
+        <mj-column width="100%">
+            <mj-divider border-color="#C45525"/>
+            <mj-button href="{{ sheet_url }}" color="#C45525" background-color="#E8A75D" font-weight="bold">
+                    Retrouvez ce produit sur notre site
+                </mj-button>
+        </mj-column>
+    </mj-section>
+    <mj-section background-color="#E8A75D">
+        <mj-column>
+            <mj-text align="center" color="#C45525" >
+                <p>Message envoyé par <strong>Pur Beurre</strong></p>
+            </mj-text>
+        </mj-column>
+    </mj-section>
+</mj-body>
+</mjml>
+{% endmjml %}

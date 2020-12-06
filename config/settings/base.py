@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "product.apps.ProductConfig",
     "search.apps.SearchConfig",
     "openfoodfacts.apps.OpenfoodfactsConfig",
+    "mjml",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -103,3 +104,7 @@ STATIC_URL = "/static/"
 
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+# Settings for mjml
+MJML_BACKEND_MODE = "cmd"
+MJML_EXEC_CMD = os.path.join(BASE_DIR, "node_modules", ".bin", "mjml")
