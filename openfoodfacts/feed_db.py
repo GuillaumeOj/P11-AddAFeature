@@ -1,5 +1,7 @@
+import sys
+
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
-from progress.bar import IncrementalBar
+from django.core.management import base, color
 
 from product.models import Category, Favorite, Product
 
@@ -11,15 +13,15 @@ class FeedDb:
 
     def feed_db(self, raw_products):
 
+        style = color.make_style()
+        stdout = base.OutputWrapper(sys.stdout)
+
         self._clear_db()
 
         # Insert each product in the application's database
-        bar = IncrementalBar(
-            "Inserting products", max=len(raw_products), suffix="%(percent)d%%"
-        )
-        bar.start()
+        stdout.write("====   Insert products in the database    ====")
+        stdout.write("Inserting products in the database...")
         for raw_product in raw_products:
-            bar.next()
             serialized_product = self._serialize_product(raw_product)
 
             try:
@@ -55,9 +57,8 @@ class FeedDb:
                     obj.save()
 
                 product.categories.add(obj)
-        bar.finish()
-
-        return True
+        stdout.write(style.SUCCESS("DONE"))
+        stdout.write("==============================================")
 
     def _serialize_product(self, raw_product):
         """Serialize a product data informations."""

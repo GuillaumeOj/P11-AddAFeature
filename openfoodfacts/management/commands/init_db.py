@@ -9,10 +9,8 @@ class Command(BaseCommand):
     help = "Initialize the database with products from OpenFoodFacts"
 
     def handle(self, *args, **options):
-        self.stdout.write("Downloading products from OpenFoodFacts")
-        api = Api()
         try:
-            raw_products = api.get_products()
+            raw_products = Api().get_products()
         except HTTPError as err:
             if err.status_code == 404:
                 self.stdout.write(
@@ -32,13 +30,4 @@ class Command(BaseCommand):
         except Timeout:
             self.stdout.write(self.style.WARNING("The request timed out."))
         else:
-            self.stdout.write(self.style.SUCCESS("Done."))
-
-            self.stdout.write("Inserting products in the database")
-            feeder = FeedDb()
-            if feeder.feed_db(raw_products):
-                self.stdout.write(self.style.SUCCESS("Done."))
-            else:
-                self.stdout.write(
-                    self.style.error("Could'nt insert products in the database.")
-                )
+            FeedDb().feed_db(raw_products)
