@@ -54,12 +54,12 @@
       </div>
     </div>
     <div class="row my-5">
-      <div class="col btn btn-primary">
+      <div class="col-auto ml-auto btn btn-primary">
         <a href="{{ product.url }}" target="_blank" rel="noreferrer" class="text-white">
           Voir la fiche sur Open Food Facts
         </a>
       </div>
-      <div class="col btn btn-primary">
+      <div class="col-auto ml-5 mr-auto btn btn-primary">
         <a href="{% url "product:sheet_by_email" product.code %}{% if next %}?next={{ next }}{% endif %}"
           class="text-white">
           Envoyer la fiche par e-mail
