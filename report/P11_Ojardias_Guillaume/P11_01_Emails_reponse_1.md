@@ -13,6 +13,8 @@ Nous allons donc procéder aux modifications suivantes :
 
 Je reviens vers vous dans les heures qui suivent pour vous transmettre le commit de correction du code.
 
+Au sujet de l'ajout de la fonctionnalité, nous pouvons vous la livrer pour fin de semaine prochaine.
+
 Cordialement,
 
 Guillaume Ojardias.
