@@ -24,9 +24,5 @@ DATABASES = {
 }
 
 # Settings for email client
-EMAIL_HOST = os.getenv("EMAIL_HOST", default="localhost")
-EMAIL_PORT = os.getenv("EMAIL_PORT", default=424242)
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", default="foo")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", default="bar")
-EMAIL_USE_SSL = True if os.getenv("EMAIL_USE_SSL") else False
+EMAIL_HOST_PASSWORD = os.getenv("SENDGRID_API_KEY")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
