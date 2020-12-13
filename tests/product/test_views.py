@@ -122,6 +122,15 @@ class ProductViewsTests(CustomTestCase):
         )
         self.assertEqual(mail.outbox[0].to, ["guillaume.ojardias@gmail.com"])
 
+    def test_sheet_by_email_with_the_wrong_product_code(self):
+        self.client.force_login(self.user)
+        url = reverse("product:sheet_by_email", args=[123445])
+
+        response = self.client.get(url, follow=True)
+        self.assertEqual(response.status_code, 404)
+
+        self.assertEqual(len(mail.outbox), 0)
+
     def test_sheet_by_email_with_post(self):
         self.client.force_login(self.user)
         url = reverse("product:sheet_by_email", args=[self.product.code])
