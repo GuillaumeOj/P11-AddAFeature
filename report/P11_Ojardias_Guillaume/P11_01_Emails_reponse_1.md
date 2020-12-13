@@ -17,4 +17,4 @@ Au sujet de l'ajout de la fonctionnalité, nous pouvons vous la livrer pour fin 
 
 Cordialement,
 
-Guillaume Ojardias.
+Guillaume OJARDIAS.

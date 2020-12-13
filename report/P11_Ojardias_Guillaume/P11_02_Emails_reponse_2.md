@@ -1,6 +1,6 @@
 Bonjour madame Jimena,
 
-Suite à mon précédent email, veuillez trouver ci-après le lien vers le commit apportant une correction au problème identifié par vos équipes.
+Suite à mon précédent e-mail, veuillez trouver ci-après le lien vers le commit apportant une correction au problème identifié par vos équipes.
 
 Il s'agit du commit [bcdfa1c](https://github.com/GuillaumeOj/P11-AddAFeature/commit/bcdfa1c8fdc8899b7c06f3e469ffb28baee7f1ae). Les corrections sont les suivantes :
 
@@ -10,4 +10,4 @@ Il s'agit du commit [bcdfa1c](https://github.com/GuillaumeOj/P11-AddAFeature/com
 
 Cordialement,
 
-Guillaume Ojardias.
+Guillaume OJARDIAS.
