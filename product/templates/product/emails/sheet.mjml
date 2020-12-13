@@ -30,10 +30,10 @@
         }
     </mj-style>
 </mj-head>
-<mj-body>
+<mj-body background-color="#E8A75D">
     <mj-section background-color="#E8A75D">
         <mj-column width="20%" padding="0">
-          <mj-image src="{% static "dist/assets/img/logo_pur_beurre.svg" %}" height="50px" />
+          <mj-image src="{{ base_domain }}{% static "dist/assets/img/logo_pur_beurre.svg" %}" height="50px" />
         </mj-column>
         <mj-column width="80%" padding="0">
             <mj-text color="#C45525" align="center">
@@ -58,7 +58,7 @@
         </mj-column>
         <mj-column width="40%">
           {% if product.image_url %}
-          <mj-image alt="Photo {{ product.name }}" src="{{ product.image_url }}" height="150px" />
+          <mj-image alt="Photo {{ product.name }}" src="{{ product.image_url }}" width="150px" />
             {% else %}
           <mj-image alt="Logo Pur Beurre" src="{% static "dist/assets/img/logo_pur_beurre.svg" %}" height="150px" />
             {% endif %}
@@ -91,7 +91,7 @@
         </mj-column>
         <mj-column width="100%">
             <mj-divider border-color="#C45525"/>
-            <mj-button href="{{ sheet_url }}" color="#C45525" background-color="#E8A75D" font-weight="bold">
+            <mj-button href="{{ base_domain }}{{ sheet_url }}" color="#C45525" background-color="#E8A75D" font-weight="bold">
                     Retrouvez ce produit sur notre site
                 </mj-button>
         </mj-column>

@@ -99,9 +99,9 @@ def favorites(request):
     return render(request, "product/favorites.html", context=context)
 
 
-@require_http_methods(["POST"])
+@require_http_methods(["GET"])
 @login_required
-def sheet_by_email(request):
+def sheet_by_email(request, product_code):
     """Send a product sheet by email to the current user.
 
     Expect an input value with the code of the product to send by e-mail.
@@ -109,12 +109,15 @@ def sheet_by_email(request):
     :rtype: HttpResponseRedirect
     """
 
-    product = Product.objects.get_product_by_code(request.POST.get("product_code"))
+    product = Product.objects.get_product_by_code(product_code)
 
     if not product:
         return HttpResponseNotFound()
 
+    next_page = request.GET.get("next")
     redirect_to = reverse("product:sheet", args=[product.code])
+    if next_page:
+        redirect_to += f"?next={next_page}"
 
     subject = f"Pur Beurre - Votre fiche pour {product.name}"
     to = [request.user.email]
@@ -125,6 +128,12 @@ def sheet_by_email(request):
         "sheet_url": redirect_to,
     }
 
+    site_scheme = request.scheme
+    site_host = request.get_host()
+    base_domain = f"{site_scheme}://{site_host}"
+
+    context["base_domain"] = base_domain
+
     text_content = loader.render_to_string("product/emails/sheet_text.html", context)
     html_content = loader.render_to_string("product/emails/sheet.mjml", context)
 
@@ -132,6 +141,11 @@ def sheet_by_email(request):
         send_mail(subject, text_content, None, to, html_message=html_content)
         messages.success(request, "Votre fiche est envoyée !")
     except smtplib.SMTPException:
+        messages.error(
+            request,
+            "Une erreur s'est produite. Votre fiche n'a pas était envoyée.",
+        )
+    except ConnectionRefusedError:
         messages.error(
             request,
             "Une erreur s'est produite. Votre fiche n'a pas était envoyée.",
