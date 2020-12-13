@@ -128,6 +128,12 @@ def sheet_by_email(request, product_code):
         "sheet_url": redirect_to,
     }
 
+    site_scheme = request.scheme
+    site_host = request.get_host()
+    base_domain = f"{site_scheme}://{site_host}"
+
+    context["base_domain"] = base_domain
+
     text_content = loader.render_to_string("product/emails/sheet_text.html", context)
     html_content = loader.render_to_string("product/emails/sheet.mjml", context)
 
