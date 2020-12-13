@@ -27,7 +27,9 @@ def sheet(request, product_code):
         "product_search_form": product_search_form,
     }
 
-    redirect_to = request.POST.get("next", request.GET.get("next", "homepage:index"))
+    redirect_to = request.POST.get(
+        "next", request.GET.get("next", reverse("homepage:index"))
+    )
     if redirect_to:
         context["next"] = redirect_to
 
@@ -53,7 +55,9 @@ def save_favorite(request, product_code, substitute_code):
     product = Product.objects.get_product_by_code(product_code)
     substitute = Product.objects.get_product_by_code(substitute_code)
 
-    redirect_to = request.POST.get("next", request.GET.get("next", "homepage:index"))
+    redirect_to = request.POST.get(
+        "next", request.GET.get("next", reverse("homepage:index"))
+    )
 
     if product and substitute:
         current_user = request.user
