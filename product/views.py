@@ -114,7 +114,10 @@ def sheet_by_email(request, product_code):
     if not product:
         return HttpResponseNotFound()
 
+    next_page = request.GET.get("next")
     redirect_to = reverse("product:sheet", args=[product.code])
+    if next_page:
+        redirect_to += f"?next={next_page}"
 
     subject = f"Pur Beurre - Votre fiche pour {product.name}"
     to = [request.user.email]
@@ -124,10 +127,6 @@ def sheet_by_email(request, product_code):
         "product": product,
         "sheet_url": redirect_to,
     }
-
-    next_page = request.GET.get("next")
-    if next_page:
-        context["next"] = next_page
 
     text_content = loader.render_to_string("product/emails/sheet_text.html", context)
     html_content = loader.render_to_string("product/emails/sheet.mjml", context)
