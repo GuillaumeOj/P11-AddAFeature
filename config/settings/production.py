@@ -27,6 +27,10 @@ DATABASES = {
     }
 }
 
+# Settings for email client
+EMAIL_HOST_PASSWORD = os.getenv("SENDGRID_API_KEY")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+
 # Enable sentry
 sentry_sdk.init(
     dsn="https://947b8a21015b4d91a53a9ca93a99852f@o453278.ingest.sentry.io/5500766",
