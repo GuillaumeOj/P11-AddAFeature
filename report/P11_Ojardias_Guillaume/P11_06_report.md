@@ -30,10 +30,10 @@ _[https://www.notion.so/guillaumeoj/](https://www.notion.so/guillaumeoj/c79895c9
 
 # II. Tâches du projet
 
-Les fonctionnalités ajoutées à ce projet sont :
+Les modifications apportées à ce projet sont :
 
 - ajout et configuration de _[tox](https://tox.readthedocs.io/en/latest/)_;
-- utilisation des _[GitHub Actions](https://github.com/features/actions)_ à la place de _[Travis](https://travis-ci.com/)_;
+- utilisation des _[GitHub Actions](https://github.com/features/actions)_ à la place de _[Travis CI](https://travis-ci.com/)_;
 - correction d'un bug;
 - envoi par e-mail d'une fiche produit.
 
@@ -42,19 +42,19 @@ Les fonctionnalités ajoutées à ce projet sont :
 ### Tox
 
 J'utilise _Tox_ quotidiennement pendant mon stage.
-Ce projet est l'occasion de mieux comprendre son fonctionnement et d'apprendre à le configurer.
+Ce projet est l'occasion de mieux comprendre son fonctionnement et d'apprendre à le configurer par moi même.
 
 Le fichier `tox.ini` configure plusieurs environnements :
 
-- `py39` : lance les tests unitaires et fonctionnels;
+- `py39` : lance les tests;
 - `pep8` : vérifie la conformité du code avec `black`, `isort` et `flake8`;
-- `coverage` : vérifie le taux de couverture des tests;
+- `coverage` : calcul le taux de couverture des tests;
 - `start` : démarre le serveur de développement;
 - `prod` : exécute les tâches nécessaires à la mise en production de l'application;
 - `init-db` : initialise la base de données.
 
 Les environnements `py39`, `pep8` et `coverage` sont utilisés par le CI.
-Les trois autres sont dédiés à une utilisation manuelle est ponctuelle.
+Les trois autres sont dédiés à une utilisation manuelle et ponctuelle.
 
 La mise en place de `tox` se fait à partir de ce commit :
 [936f512](https://github.com/GuillaumeOj/P11-AddAFeature/commit/936f512d53d41f6ce6776d3c8f109888228072aa).
@@ -63,13 +63,13 @@ La liste complète des commits qui concernent `tox` est disponible _[ici](https:
 
 ### GitHub Actions
 
-Désormais, ce projet comporte deux workflow un `CI`et un `CD`.
+Désormais, ce projet comporte deux workflows un `CI` et un `CD`.
 Le premier pour s'assurer de la bonne exécution des tests, le second pour déployer l'application sur le serveur.
 
-Cette transition de `Travis` à `GitHub Actions` est visible à partir de ce commit :
+Cette transition de `Travis CI` à `GitHub Actions` est visible à partir de ce commit :
 [04dd5af](https://github.com/GuillaumeOj/P11-AddAFeature/commit/04dd5af8b6eda26b2c430c5fa65a51c6a460ae48).
 
-La mise en place du worflow de déploiement est visible sur ce commit :
+La mise en place du workflow de déploiement est visible sur ce commit :
 [22f0168](https://github.com/GuillaumeOj/P11-AddAFeature/commit/22f0168e06e34f069decb6d02b6490b7abbabd2d).
 
 ## II.2. Correction d'un bug
@@ -77,7 +77,7 @@ La mise en place du worflow de déploiement est visible sur ce commit :
 Le bug est lié à une mauvaise pratique de ma part.
 En développement, l'application utilisait SQLite comme base de données.
 Alors qu'en production, elle utilise PostgreSQL.
-Même si les deux sont similaires, je suis tombé sur un cas ou celà était préjudiciable.
+La conséquence était que les tests échouaient en utilisant PostgreSQL mais pas SQLite.
 
 Pour remédier au problème, il a fallu :
 
@@ -102,8 +102,8 @@ Le fonctionnement général de cette fonctionnalité est le suivant :
 
 - l'utilisateur clique sur le bouton d'envoi de la fiche;
 - on redirige les utilisateurs non connectés vers le formulaire de connexion;
-- une fois connecté l'application génére un email avec le template d'email;
-- puis l'email est envoyé via le serveur SMTP de _[Sendgrid](https://sendgrid.com/)_.
+- une fois connecté l'application génère un e-mail avec le template l'e-mail;
+- puis l'e-mail est envoyé via le serveur SMTP de _[Sendgrid](https://sendgrid.com/)_.
 
 L'ajout de cette fonctionnalité est visible sur les commits suivants :
 [59f6f72](https://github.com/GuillaumeOj/P11-AddAFeature/commit/59f6f7260932de94e0e64134d44642133977241b),
@@ -112,7 +112,7 @@ et [d2208e6](https://github.com/GuillaumeOj/P11-AddAFeature/commit/d2208e68f577c
 
 # III. Bilan du projet
 
-## III.1. Modification de workflows 
+## III.1. Modification du workflow
 
 La partie la plus difficile dans la modification du workflow est la mise en place du déploiement de l'application.
 Je me suis retrouvé confronté à plusieurs problème :
@@ -123,31 +123,31 @@ Je me suis retrouvé confronté à plusieurs problème :
 
 Finalement, après plusieurs tentatives, j'ai fini par saisir les étapes à suivre :
 
-- céer une paire de clef SSH dédiée à GitHub et une paire propre au serveur;
-- enregister la clef privée de GitHub dans les `secrets` du dépôt;
+- créer une paire de clef SSH dédiée à GitHub et une paire propre au serveur;
+- enregistrer la clef privée de GitHub dans les `secrets` du dépôt;
 - ajouter la clef publique du serveur dans les clefs SSH autorisées sur le compte GitHub;
 - ajouter la clef publique de GitHub dans les clefs autorisées du serveur;
 
-Ce qui donne le worflow suivant :
+Ce qui donne le workflow suivant :
 
 - connexion au serveur depuis GitHub en SSH;
 - récupération des nouveaux commits avec `git pull --rebase` en SSH;
 - application des migrations, collecte des fichiers statiques, etc;
 - redémarrage de l'application;
 
-## III.2. Envoi d'emails
+## III.2. Envoi d'e-mails
 
-La création de cette fonctionnalité m'a fait prendre conscience de la difficulté que peut représenter la création d'un email transactionnel :
+La création de cette fonctionnalité m'a fait prendre conscience de la difficulté que peut représenter la création d'un e-mail transactionnel :
 
 - impossible d'utiliser un framework CSS tel que BootStrap;
-- impossible de faire appel au système de feuille de style CSS;
+- impossible de faire appel au système de feuilles de styles CSS;
 - disparité importante de prise en charge du HTML et du CSS selon le client de messagerie;
-- difficile d'attacher les images à l'email directement.
+- difficile d'attacher les images à l'e-mail directement.
 
-Pour répondre à la problématique de la mise en forme de l'email, le template utilise le framework _[MJML](https://mjml.io/)_.
+Pour répondre à la problématique de la mise en forme de l'e-mail, le template utilise le framework _[MJML](https://mjml.io/)_.
 Les objectifs de ce framework sont les suivants : 
 
-- utiliser un langage spécifique pour simplifier la mise en page d'emails;
+- utiliser un langage spécifique pour simplifier la mise en page d'e-mails;
 - garantir un affichage correct quelque soit le client de messagerie et quelque soit le support de lecture (ordinateur, smartphone, etc.)
 
 L'intégration du template au sein de l'application se fait simplement grâce au plugin dédié `django-mjml`.
@@ -160,9 +160,9 @@ Cependant pour les besoins de ce projet, le logo est celui déjà présent sur l
 
 Le plus dur a été de ne pas s'égarer.
 La différence d'expérience entre les projets 8 et 11 fait que la tentation est grande de refactorer son code.
-Pour autant, en se placant dans le contexte de ce projet, lorsque l'on a des délais et des coûts à tenir, pas questions de perdre du temps.
+Mais en se plaçant dans le contexte de ce projet, lorsque l'on a des délais et des coûts à tenir, pas questions de perdre du temps.
 
-Pour finir, je suis très heureux de constater l'évolution de ma technique d'apprentissage.
-Découvrir de nouveaux outils ou de nouvelles technologies ne me fait plus peur.
-La lecture des documentations associées est plus facile.
+Pour finir, je suis très heureux de constater mon évolution depuis le début de mon apprentissage.
+Découvrir de nouveaux outils ou de nouvelles technologies devient plus facile.
+La lecture des documentations associées est aussi plus rapide.
 Bref, je suis en bonne voie vers la fin de mon parcours !
