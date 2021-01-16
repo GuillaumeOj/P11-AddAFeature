@@ -8,7 +8,7 @@ updates:
     timezone: Europe/Paris
   open-pull-requests-limit: 10
 - package-ecosystem: npm
-  directory: "/yarn"
+  directory: "/"
   schedule:
     interval: daily
     time: "09:00"
