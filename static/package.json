@@ -38,7 +38,7 @@
         "url": "https://github.com/BlackrockDigital/startbootstrap-creative.git"
     },
     "dependencies": {
-        "bootstrap": "4.5.3"
+        "bootstrap": "4.6.0"
     },
     "devDependencies": {
         "autoprefixer": "10.2.3",
