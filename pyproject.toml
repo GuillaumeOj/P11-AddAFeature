@@ -15,7 +15,7 @@ django = "^3.1.7"
 requests = "^2.25.1"
 python-dotenv = "^0.15.0"
 progress = "^1.5"
-sentry-sdk = "^0.20.3"
+sentry-sdk = "^1.0.0"
 sendgrid = "^6.6.0"
 django-mjml = "^0.10.2"
 
