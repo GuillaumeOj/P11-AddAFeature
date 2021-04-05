@@ -3,14 +3,13 @@ pull_request_rules:
     conditions:
       - author=GuillaumeOj
       - "label!=manual merge"
-      - check-success~=^security/snyk
       - check-success=pep8
       - check-success=py39
       - check-success=coverage
     actions:
       merge:
         strict: "smart"
-        method: squash
+        method: rebase
       delete_head_branch:
         force: True
   - name: Warn on conflicts
@@ -29,11 +28,9 @@ pull_request_rules:
       label:
         remove:
           - conflict
-  - name: Merge Snyk's pull requests
+  - name: Merge Dependabot's pull requests
     conditions:
-      - title~=^\[Snyk\]
-      - head~=^snyk-fix
-      - check-success~=^security/snyk
+      - author~=^dependabot(|-preview)\[bot\]$
       - check-success=pep8
       - check-success=py39
       - check-success=coverage
