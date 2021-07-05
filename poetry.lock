@@ -52,14 +52,14 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "django-mjml"
-version = "0.10.2"
+version = "0.11.0"
 description = "Use MJML in Django templates"
 category = "main"
 optional = false
 python-versions = "*"
 
 [package.dependencies]
-django = ">=1.8,<3.2"
+django = ">=1.8,<3.3"
 
 [package.extras]
 requests = ["requests[security] (>=2.20)", "requests (>=2.20)"]
@@ -230,7 +230,7 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "aa938bc8e982bb4a1f25f778186e7e1b655557499e71522565d2a3d9b1e4e784"
+content-hash = "f016f827e62253639764164a69b704357b885dc441d2ee326647931f8aa1216c"
 
 [metadata.files]
 asgiref = [
@@ -254,8 +254,8 @@ django = [
     {file = "Django-3.1.13.tar.gz", hash = "sha256:9f8be75646f62204320b195062b1d696ba28aa3d45ee72fb7c888ffaebc5bdb2"},
 ]
 django-mjml = [
-    {file = "django-mjml-0.10.2.tar.gz", hash = "sha256:1e24dde52d1d35c913d58e5e20b73c99186fbf24d8087834545eb3a98a9dd5b3"},
-    {file = "django_mjml-0.10.2-py2.py3-none-any.whl", hash = "sha256:dc1034977c6e33e928766f26f897f5213ffe605e84b71c71f841927528374218"},
+    {file = "django-mjml-0.11.0.tar.gz", hash = "sha256:8d7b391216de00f25999f3f9e47a19a70b683d4513a49db8978e9ea5466af7ef"},
+    {file = "django_mjml-0.11.0-py2.py3-none-any.whl", hash = "sha256:32fd07cb91f045d97ce884c611123decac6765948e2ffc247405a007d3f6d55c"},
 ]
 gunicorn = [
     {file = "gunicorn-20.1.0-py3-none-any.whl", hash = "sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e"},
